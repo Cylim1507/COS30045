@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Your name here"/>
+
+	<link rel="stylesheet" href="stylesheet.css"> 
+	<title>Task 2.3 D3 Data binding</title>
+	<!--Insert description of exercise  -->
+
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="button-container">
+        <form method="get" action="lab2-1.html"><button type="submit">Lab1</button></form>
+        <form method="get" action="lab2-2.html"><button type="submit">Lab2</button></form>
+        <form method="get" action="lab2-3.html"><button type="submit">Lab3</button></form>
+        <form method="get" action="lab2-4.html"><button type="submit">Lab4</button></form>
+    </div>
+
+    <h1>The D3 journey starts here...</h1>
+
+		<script>
+
+			var w = 500;
+			var h = 160;
+			var padding = 5;
+			
+			var dataset = [
+							[5, 20, 6], 
+							[480 , 90, 7],
+							[250 , 50, 9],
+							[100 , 33, 3],
+							[330 , 95, 13],
+							[410 , 12, 7],
+							[475 , 44, 4],
+							[25 , 67, 2],
+							[85 , 21, 8],
+							[220 , 88, 8]
+						];
+
+			var svg = d3.select("body")
+				.append("svg")
+				.attr("width", w)
+				.attr("height", h)
+				.attr("fill", "rgb(106,90, 205)" );
+
+			svg.selectAll("circle")
+				.data(dataset)
+				.enter()
+				.append("circle")
+				.attr("cx", function(d, i){
+					return d[0];
+				})
+				.attr("cy", function(d){
+					return d[1];
+				})
+				.attr("r", function(d){
+					return d[2];
+				})
+				.attr("fill", "slategrey");
+
+			svg.selectAll("text")
+				.data(dataset)
+				.enter()
+				.append("text")
+				.text(function(d){
+					return d[0] + "," +d[1];
+				})
+				.attr("fill", "black")
+				.attr("x", function(d, i){
+					return d[0]-5;
+				})
+				.attr("y", function(d){
+					return d[1]+20;
+				});
+
+
+		</script>
+    
+    <br>
+    <bf>
+        <footer style="color:grey">COS30045 Data Visualisation<br>Lim Chi Yuen</footer>
+    </bf>
+
+
+</body>
+</html>

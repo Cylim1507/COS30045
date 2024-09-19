@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Lim Chi Yuen"/>
+
+	<link rel="stylesheet" href="stylesheet.css"> 
+	<title>Task 3.1 D3 Data binding</title>
+	<!--Insert description of exercise  -->
+
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="button-container">
+		<form method="get" action="../home.html"><button type="submit">Home</button></form>
+		<form method="get" action="lab3-1.html"><button type="submit">Lab1</button></form>
+        <form method="get" action="lab3-2.html"><button type="submit">Lab2</button></form>
+    </div>
+
+    <h1>The D3 journey starts here...</h1>
+
+		<script>
+
+			var w = 1000;
+			var h = 500;
+			var padding = 40;
+			
+			//ploting for the scatter plot
+			var dataset = [
+							[2, 8], 
+							[3 , 5],
+							[5 , 17],
+							[6 , 6],
+							[6 , 12],
+							[7 , 20],
+							[8 , 22],
+							[10 , 11],
+							[5 , 12],
+							[6 , 16]
+						];
+
+            var xScale = d3.scaleLinear()
+                            .domain([0, 
+                            d3.max(dataset, function(d){
+                                return d[0];
+                            })])
+                            .range([padding, w-padding-15]);
+
+			var yScale = d3.scaleLinear()
+							.domain([0, 
+							d3.max(dataset, function(d){
+								return d[1];
+							})])
+							.range([h - padding, padding]);
+
+			var xAxis = d3.axisBottom()
+							.ticks(10)
+							.scale(xScale);
+			var yAxis = d3.axisLeft()
+							.ticks(5)
+							.scale(yScale);
+
+			//draw container
+			var svg = d3.select("body")
+				.append("svg")
+				.attr("width", w)
+				.attr("height", h)
+				.attr("fill", "rgb(106,90, 205)" );
+
+			//draw the circle
+			svg.selectAll("circle")
+				.data(dataset)
+				.enter()
+				.append("circle")
+				.attr("cx", function(d, i){
+					return xScale(d[0]);
+				})
+				.attr("cy", function(d){
+					return yScale(d[1]);
+				})
+				.attr("r", function(d){
+					return 3;
+				})
+				.attr("r", 5) //for a better radius visuability
+				.attr("fill", "slategrey");
+
+			// writing the label
+			svg.selectAll("text")
+				.data(dataset)
+				.enter()
+				.append("text")
+				.text(function(d){
+					return d[0] + "," +d[1];
+				})
+				.attr("fill", "black")
+				.attr("x", function(d, i){
+					return xScale(d[0]) - 19;
+				})
+				.attr("y", function(d){
+					return yScale(d[1]) - 10	;
+				});
+
+			//call x-Axis
+			svg.append("g")
+				.attr("transform", "translate(0, "+ (h - padding)+ ")")
+				.call(xAxis);
+			
+			//call y-Axis
+			svg.append("g")
+				.attr("transform", "translate("+ padding + ", 0)")
+				.call(yAxis);
+
+			//call x-axis label
+			svg.append("text")
+				.style("text-anchor", "end")
+            	.attr("x", w)
+            	.attr("y",h -10)
+            	.text("Tree Age (years)");
+
+			//call y-axis label
+			svg.append("text")
+				.style("text-anchor", "end")
+            	.attr("transform", "rotate(-90)")
+        	    .attr("x", -10)
+    	        .attr("y", 15)
+            	.text("Tree Height (m)");
+				
+
+		</script>
+		<p>The following is a modified version of original Lab3-2 with axis label</p>
+    
+    <br>
+    <bf>
+        <footer style="color:grey">COS30045 Data Visualisation<br>Lim Chi Yuen</footer>
+    </bf>
+
+
+</body>
+</html>

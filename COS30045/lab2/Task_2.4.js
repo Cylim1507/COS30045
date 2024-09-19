@@ -39,7 +39,7 @@ function init(){
         })
         //colour of the bar changes depending on the value of the data
         .attr("fill", function(d) {
-                return "rgb(135,206, " + (d.wombats * 8) + ")";
+                return "rgb(0,255, " + (d.wombats * 8) + ")";
         });
 
         svg.selectAll("text")
@@ -54,7 +54,7 @@ function init(){
             return i * (w / wombatSightings.length) +10.5;
         })
         .attr("y",function(d){
-            return h - (d.wombats *4)
+            return h - (d.wombats *4) + 13
         })
     }
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Your name here"/>
+
+	<link rel="stylesheet" href="stylesheet.css"> 
+	<title>Task 2.1 D3 Data binding</title>
+	<!--Insert description of exercise  -->
+
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="button-container">
+		<form method="get" action="../home.html"><button type="submit">Home</button></form>
+        <form method="get" action="lab2-1.html"><button type="submit">Lab2.1</button></form>
+        <form method="get" action="lab2-2.html"><button type="submit">Lab2.2</button></form>
+        <form method="get" action="lab2-3.html"><button type="submit">Lab2.3</button></form>
+        <form method="get" action="lab2-4.html"><button type="submit">Lab2.4</button></form>
+    </div>
+
+    <h1>The D3 journey starts here...</h1>
+
+    <script>
+    //example from murray 
+
+        var dataset = [14, 5, 26, 23, 9]
+
+        d3.select("body").selectAll("p")
+        .data(dataset)
+        .enter()
+        .append("p")
+        .style("color", function(d){
+            if (d>10){
+                return "red"
+            }
+        })
+        .text(function(d){
+            if (d > 10){
+                return "warning: Joe watched "+ d + "cat videos todays. ";
+            }
+            else{
+                return "Joe watched " + d + " cat videos today.";
+            }
+        });
+    </script>
+    <br>
+    <bf>
+        <footer style="color:grey">COS30045 Data Visualisation<br>Lim Chi Yuen</footer>
+    </bf>
+
+
+</body>
+</html>

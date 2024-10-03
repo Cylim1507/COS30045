@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Data Visualisation Exercise 1"/>
+	<meta name="keywords" content="HTML, CSS"/>
+	<meta name="author" content="Lim Chi Yuen"/>
+
+	<link rel="stylesheet" href="stylesheet.css"> 
+	<title>Task 5.1 D3 Data binding</title>
+	<!--Insert description of exercise  -->
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="button-container">
+		<form method="get" action="../home.html"><button type="submit">Home</button></form>
+        <form method="get" action="lab5-1.html"><button type="submit">Lab5.1</button></form>
+        <form method="get" action="lab5-2.html"><button type="submit">Lab5.2</button></form>
+        <form method="get" action="lab5-3.html"><button type="submit">Lab5.3</button></form>
+    </div>
+
+    <h1>The D3 journey starts here...</h1>
+
+    <button id="updateButton">Update Data</button>
+	<br><br>
+
+		<script>
+			var w = 500;
+			var h = 130;
+			var barpadding = 2;
+			var maxValue = 25;
+
+			var dataset = [14, 5, 26, 23, 9, 10, 15, 27];
+
+			var xScale = d3.scaleBand()
+							.domain(d3.range(dataset.length))
+							.rangeRound([0, w])
+							.paddingInner(0.05);
+			
+			var yScale = d3.scaleLinear()
+							.domain([0, d3.max(dataset)])
+							.range([h, 0]);
+
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h)
+						.attr("fill", "rgb(106, 90, 205)");
+
+			svg.selectAll("rect")
+				.data(dataset)
+				.enter()
+				.append("rect")
+				.attr("x", function(d, i) {
+					return xScale(i);
+				})
+				.attr("y", function(d){
+					return yScale(d);
+				})
+				.attr("width", xScale.bandwidth())
+				.attr("height", function(d){
+					return h - yScale(d);
+				});
+
+			// Bind the updateData function to the button click event
+			d3.select("#updateButton").on("click", function() {
+				// Generate new random data
+				var numValues = dataset.length;
+				dataset = [];
+				for (var i = 0; i < numValues; i++) {
+					var newNumber = Math.floor(Math.random() * maxValue);
+					dataset.push(newNumber);
+				}
+
+				// Update the yScale domain
+				yScale.domain([0, d3.max(dataset)]);
+
+				// Select all rectangles and bind new data
+				svg.selectAll("rect")
+					.data(dataset)
+					.attr("y", function(d) {
+						return yScale(d);
+					})
+					.attr("height", function(d) {
+						return h - yScale(d);
+					});
+			});
+		</script>
+    
+    <br>
+    <footer style="color:grey">COS30045 Data Visualisation<br>Lim Chi Yuen</footer>
+
+</body>
+</html>

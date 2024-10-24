@@ -1,15 +1,14 @@
 function init() {
-
     var w = 500;
     var h = 300;
 
     var projection = d3.geoMercator()
-                        .center([145, -36.5])
-                        .translate([w/2, h/2])
-                        .scale(2450);
+        .center([145, -36.5])
+        .translate([w / 2, h / 2])
+        .scale(2450);
 
     var path = d3.geoPath()
-                    .projection(projection);
+                 .projection(projection);
 
     var svg = d3.select("body")
                 .append("svg")
@@ -17,15 +16,17 @@ function init() {
                 .attr("height", h)
                 .attr("fill", "grey");
 
-    //after upload, need to change to json file link
-    d3.json("LGA_VIC.json").then(function(json){
+    d3.json("LGA_VIC.json").then(function(json) {
         svg.selectAll("path")
             .data(json.features)
             .enter()
             .append("path")
-            .attr("d", path);
+            .attr("d", path)
+            .attr("stroke", "black")  // Optional: Add borders
+            .attr("fill", "lightblue");  // Optional: Set country color
+    }).catch(function(error) {
+        console.error("Error loading JSON:", error);
     });
-    
 }
 
 window.onload = init;

@@ -53,6 +53,18 @@ function init() {
           .attr("y", function(d) { return yScale(d[1]); }) 
           .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
           .attr("width", xScale.bandwidth());
+
+
+    var svg = d3.select("#cus_legend")
+
+    // Handmade legend
+    svg.append("circle").attr("cx",10).attr("cy",30).attr("r", 6).style("fill", "#00ff00")
+    svg.append("circle").attr("cx",100).attr("cy",30).attr("r", 6).style("fill", "#FFA500")
+    svg.append("circle").attr("cx",200).attr("cy",30).attr("r", 6).style("fill", "#0000FF")
+    svg.append("text").attr("x", 20).attr("y", 30).text("Apple").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 110).attr("y", 30).text("Orange").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 210).attr("y", 30).text("Grapes").style("font-size", "15px").attr("alignment-baseline","middle")
+    
 }
 
 window.onload = init;
